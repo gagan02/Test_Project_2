@@ -178,7 +178,8 @@ body {
 
     li {
       @include flex(flex, space-between, flex-start);
-      padding: 18px 10px;
+      padding: 18px 0;
+      margin: 0 10px;
       position: relative;
       font-size: 18px;
       color: $primary-color;
@@ -191,7 +192,7 @@ body {
       }
 
       &:before {
-        @include position(absolute, 2px, -10px, 2px, -10px, 0);
+        @include position(absolute, 2px, -20px, 2px, -20px, 0);
         content: '';
         border-radius: 5px;
       }
