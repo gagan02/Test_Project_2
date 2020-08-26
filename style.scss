@@ -53,7 +53,8 @@ body {
 
 .SearchPopupBox {
   @include position(fixed, 0, 0, 0, 0);
-  @include flex(flex, center, center);
+  @include flex(flex, center, flex-start);
+  padding-top: 20px;
   
   .popup {
     display: flex;
