@@ -1,0 +1,236 @@
+/* Variables */
+$primary-color: #000;
+$secondary-color: #0c3d80;
+$text-color: #666;
+$text-color-light: #999;
+$text-color-lighter: #f3f3f3;
+
+/* Mixins */
+@mixin position($position, $top: false, $right: false, $bottom: false, $left: false, $zIndex: false) {
+  position: $position;
+  @if $top {
+      top: $top;
+  }
+  @if $right {
+      right: $right;
+  }
+  @if $bottom {
+      bottom: $bottom;
+  }
+  @if $left {
+      left: $left;
+  }
+  @if $zIndex {
+      z-index: $zIndex;
+  }
+}
+
+@mixin flex($display, $justifyContent: false, $alignItems: false, $flexDirection: false) {
+  display: $display;
+  @if $justifyContent {
+      justify-content: $justifyContent;
+  }
+  @if $alignItems {
+      align-items: $alignItems;
+  }
+  @if $flexDirection {
+      flex-direction: $flexDirection;
+  }
+}
+
+/* Css */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: $text-color;
+}
+
+.SearchPopupBox {
+  @include position(fixed, 0, 0, 0, 0);
+  @include flex(flex, center, center);
+  
+  .popup {
+    display: flex;
+    margin: 0 auto;
+    width: 780px;
+    max-height: calc(100% - 40px);
+    min-height: 700px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba($color: #000000, $alpha: .2);
+  }
+
+  .col {
+    @include flex(flex, false, false, column);
+    width: 50%;
+
+    &:last-child {
+      padding: 10px 0;
+      background-color: #f5f8f9;
+
+      .listScroll {
+        max-height: calc(100% - 145px);
+      }
+
+      .addressList {
+        li {
+          border-bottom-color: #ebeff2;
+          &:hover {
+
+            &:before {
+              background-color: #eaedee;
+            }
+          }
+
+          &:before {
+            top: 0;
+            bottom: 0;
+          }
+
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  .topHeader {
+    padding: 15px 20px 0;
+  }
+
+  .searchBar {
+    position: relative; 
+
+    input {
+      padding: 10px 50px 10px 0;
+      display: block;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 16px;
+      border: 0;
+      outline: 0;
+    }
+  }
+
+  .actionBtns {
+    @include position(absolute, 10px, 0);
+    @include flex(flex, false, center);
+
+    span {
+      @include flex(flex, center, center);
+      margin-left: 5px;
+      width: 34px;
+      height: 20px;
+      color: $text-color;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .clear {
+      border-right: 1px solid $text-color-light;
+      &:before,
+      &:after {
+        position: absolute;
+        left: 14px;
+        top: 2px;
+        content: ' ';
+        height: 18px;
+        width: 1px;
+        background-color: #333;
+      }
+      &:before {
+        transform: rotate(45deg);
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  .titleWrap {
+    @include flex(flex, space-between, center);
+    padding: 15px 0 10px;
+    font-size: 18px;
+    border-bottom: 1px solid $text-color-lighter;
+
+    a {
+      color: $secondary-color;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .listScroll {
+    padding: 0 20px;
+    flex: 1;
+    overflow: auto;
+  }
+
+  .addressList {
+    list-style: none;
+
+    li {
+      @include flex(flex, space-between, flex-start);
+      padding: 18px 10px;
+      position: relative;
+      font-size: 18px;
+      color: $primary-color;
+      cursor: pointer;
+      border-bottom: 1px solid $text-color-lighter;
+
+      &:hover {
+        &:before {
+          background-color: $text-color-lighter;
+        }
+      }
+
+      &:before {
+        @include position(absolute, 2px, -10px, 2px, -10px, 0);
+        content: '';
+        border-radius: 5px;
+      }
+
+      span {
+        margin-top: 10px;
+        display: block;
+        color: $text-color;
+      }
+
+      > div {
+        position: relative;
+        z-index: 1;
+        max-width: 71%;
+      }
+
+      .status {
+        color: #58bb86;
+        &.closed {
+          color: #81162a;
+        }
+      }
+    }
+  }
+
+  .title {
+    margin: 15px;
+    font-size: 18px;
+    color: $primary-color;
+    text-decoration: none;
+
+    &.link {
+      @include flex(flex, space-between, center);
+      padding: 12px 0;
+      margin: 0 15px;
+      border-top: 2px solid #ebeff2;
+    }
+  }
+}
